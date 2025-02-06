@@ -1,0 +1,38 @@
+class Solution {
+    public static void merge(int[] arr , int l , int mid , int r){
+        int[] sortedArray = new int[r - l + 1];
+        int left = l;
+        int right = mid + 1;
+        int index = 0;
+        while(left <= mid && right <= r){
+            if(arr[left] <= arr[right]){
+                sortedArray[index++] = arr[left]; 
+                left++;
+            }
+            else{
+                sortedArray[index++] = arr[right];
+                right++;
+            }
+        }
+        while(left <= mid){
+            sortedArray[index++] = arr[left];
+            left++;
+        }
+        while(right <= r){
+            sortedArray[index++] = arr[right];
+            right++;
+        }
+        for(int i = l; i <= r; i++){
+            arr[i] = sortedArray[i - l];
+        }
+    }
+    void mergeSort(int arr[], int l, int r) {
+        // code here
+        if(l < r){
+            int mid = l + (r - l) / 2;
+            mergeSort(arr , l , mid);
+            mergeSort(arr , mid + 1 , r);
+            merge(arr , l , mid , r);
+        }
+    }
+}
